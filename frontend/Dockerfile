@@ -1,7 +1,19 @@
-FROM node:18-alpine
+# Base image
+FROM node:18
+
+# Set working directory
 WORKDIR /app
-COPY . .
+
+# Copy and install dependencies
+COPY package*.json ./
 RUN npm install
+
+# Copy the full app
+COPY . .
+
+# Build the React app
 RUN npm run build
-CMD ["npm", "start"]
+
+# Expose port and start
 EXPOSE 3000
+CMD ["npm", "start"]

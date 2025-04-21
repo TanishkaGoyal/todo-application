@@ -1,0 +1,34 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tododb
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  jenkins:
+    image: jenkins/jenkins:lts  # You can change the Jenkins image version if needed
+    ports:
+      - "5500:8080"  # Map Jenkins from container's 8080 port to host's 5500
+    volumes:
+      - jenkins_home:/var/jenkins_home  # To persist Jenkins data
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Optional, skips the setup wizard
+
+volumes:
+  jenkins_home:
