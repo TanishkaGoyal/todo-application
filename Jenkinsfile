@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/TanishkaGoyal/To-do-Application.git'
+                git 'https://github.com/TanishkaGoyal/todo-application.git'
             }
         }
 
